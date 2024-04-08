@@ -3,11 +3,11 @@ from scapy.layers import http
 import argparse
 
 
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--interface", dest="interface", help="Target Interface")
-    options = parser.parse_args()
-    return options
+# def get_args():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument("-i", "--interface", dest="interface", help="Target Interface")
+#     options = parser.parse_args()
+#     return options
 
 def sniff(face):
     scapy.sniff(iface=face, store=False, prn=process_sniffed_packet)
@@ -23,5 +23,5 @@ def process_sniffed_packet(packet):
                     print("[+] Passwords and Username >>" + packet[scapy.Raw].load)
                     break
 
-face =  get_args()
-sniff(face.interface)
+# face =  get_args()
+# sniff(face.interface)
