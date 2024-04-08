@@ -1,6 +1,7 @@
 import scapy.all as scapy
 from scapy.layers import http
 import argparse
+import sniffer
 
 def parse():
     parser = argparse.ArgumentParser()
@@ -28,28 +29,13 @@ def print_result(result_list):
     print("IP\t\t\tMac Address\n- - - - - - - - - - - - - - - -")
     for client in result_list:
         print(client["ip"] + "\t\t" + client["Mac"]) 
-        
-def sniff(arguments):
-    scapy.sniff(iface=arguments, store=False, prn=process_sniffed_packet)
-    
-def process_sniffed_packet(packet):
-    if packet.haslayer(http.HTTPRequest):
-        url = packet[http.HTTPRequest].Host + packet[http.HTTPRequest].Path
-        print("[+] Http Request >> " + url)
-        if packet.haslayer(scapy.Raw):
-            keys = ["username", "password", "pass", "email"]
-            for key in keys:
-                if key:
-                    print("[+] Passwords and Username >>" + packet[scapy.Raw].load)
-                    break
 
 
 arguments = parse()    
 
-
-if arguments == "wlan0":
-    sniff(arguments.interface)
-if arguments == "result":
+if arguments.target:
     result = scan(arguments.target)
     print_result(result)
-  	
+
+if arguments.interface:
+    sniff = sniffer.sniff(arguments.interface)
