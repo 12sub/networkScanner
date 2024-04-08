@@ -1,4 +1,3 @@
-# from scapy.all import *
 import scapy.all as scapy
 from scapy.layers import http
 import argparse
