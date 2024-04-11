@@ -11,7 +11,7 @@ def scan_port(target_ip):
             print("[*] Port {} is open".format(port))
         sock.close()
 
-target_ip = input(str("Enter the target IP address: "))
+target_ip = sys.argv[1]
 print("+"*50)
 print("[+] Scanning target IP address: ", target_ip)
 print("[+] Scanning started at: ", str(datetime.now()))

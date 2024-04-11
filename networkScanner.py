@@ -18,7 +18,7 @@ def scan(ip):
     arp_request = scapy.ARP(pdst=ip)
     broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
     arp_broadcast = broadcast/arp_request
-    welcomed = scapy.srp(arp_broadcast, timeout=3, dest="target", verbose=False)[0]
+    welcomed = scapy.srp(arp_broadcast, timeout=3, verbose=False)[0]
     
     client_list = [] #to create a dictionary of ip and mac address to store the values
     
