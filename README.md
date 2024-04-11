@@ -8,6 +8,6 @@ To access it run ***Python3 networkScanner.py -[argument tag] or --[arguments] [
 To run the interface, simply run ***Python3 networkScanner.py -i [your interface] or Python networkScanner.py --interface [your interface]***
 
 You might need to run the spoofer differently because you will need it to spoof and capture the MAC address of your target to run MITM attacks. To do this, simply run ***Python3 spoofer.py -t [your Target IP] -g [your Gateway IP]***
-The code will get your IP address and your Target's Ip address and swap them so that you can intercept the network traffic. You can then use the packet sniffer to collect data from web traffic and sniff any web packets that your target may input in their web browser. If you are lucky, you can even use this to get your targets username and password from the website they access. 
+The code will get your IP address and your Target's Ip address and swap them so that you can intercept your targets network traffic. You can then use the packet sniffer to collect data from web traffic and sniff any web packets that your target may input in their web browser. If you are lucky, you can even use this to get your targets username and password from the website they access. 
 
 However, if you find this, do not use this for malicious purposes. This is just for entertainment and educational purposes only.
