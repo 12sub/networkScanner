@@ -2,6 +2,10 @@ import scapy.all as scapy
 from scapy.layers import http
 import argparse
 import sniffer
+import pyfiglet
+from termcolor import colored
+
+
 
 def parse():
     parser = argparse.ArgumentParser()

