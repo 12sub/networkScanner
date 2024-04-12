@@ -28,3 +28,4 @@ def scan_port_range(target_ip):
     except socket.error:
         print("[-] Hostname could not be resolved. Exiting..........")
         sys.exit()
+        

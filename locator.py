@@ -2,23 +2,28 @@ import pygeoip
 import sys
 import argparse
 
-def args_main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--interface', help='IP address to lookup')
-    args = parser.parse_args()
-    ip_addr = args.ip_addr
-    get_geo_info(ip_addr)
-    return
+# def args_main():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('-i', '--interface', help='IP address to lookup')
+#     args = parser.parse_args()
+#     return args
 
 def get_geo_info(ip):
-    geo_ip = pygeoip.GeoIP('GeoLiteCity.dat')
-    geo_info = geo_ip.record_by_addr(ip)
-    for  key, value in geo_info.items():
-        print('%s: %s'%(key, value))
-    return geo_info
+    try:
+        geo_ip = pygeoip.GeoIP('./GeoLiteCity.dat')
+        geo_info = geo_ip.record_by_addr(ip)
+        if geo_info is None:
+            return "No Information is avaliable in the IP"
+        info = {
+            'city': geo_info['city'],
+            'country': geo_info['country_name'],
+            'latitude': geo_info['latitude'],
+            'longitude': geo_info['longitude']
+        }
+        return info
+    except Exception as e:
+        return f"An error has occured in this piece of code. Exiting"
 
-def ipaddress(ip_addr):
-    argument = args_main()
-    ip_addr = argument.ip_addr
-    get_geo_info(ip_addr)
 
+ip = sys.argv[1]
+print(get_geo_info(ip))
