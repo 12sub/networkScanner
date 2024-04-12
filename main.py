@@ -11,12 +11,12 @@ def networkScanner(ip):
     print("[+] Finished Scanning for MAC Addresses")
     print("+" * 50)
 
-# def portScanner(ip):
-#     print("+" * 50)
-#     print("[*] Scanning the network for " + ip)
-#     portScanner.scan_port(ip)
-#     print("[+] Finished Scanning for open ports")
-#     print("+" * 50)
+def portScanner(ip):
+    print("+" * 50)
+    print("[*] Scanning the network for " + ip)
+    portScanner.scan_port_range(ip)
+    print("[+] Finished Scanning for open ports")
+    print("+" * 50)
     
 def networkSniffer(ip):
     print("+" * 50)
@@ -24,6 +24,13 @@ def networkSniffer(ip):
     subprocess.run(["python", "networkScanner.py", "-i", ] + [ip])
     print("[+] Finished Scanning for MAC Addresses")
     print("+" * 50) 
+    
+def Geo_locator(ip):
+    print("+" * 50)
+    print("[*] Scanning the network for " + ip)
+    subprocess.run(["python", "locator.py", "-i", ] + [ip])
+    print("[+] Finished Scanning for MAC Addresses")
+    print("+" * 50)
 
 banner_for_scanner = pyfiglet.figlet_format("Network Scanner")
 print(banner_for_scanner)
@@ -38,7 +45,7 @@ print("5. Spoof MAC Address \n")
 print("-"*60)
 ip = sys.argv[1]
 print(ip)
-selection = int(input("Select your option: "))
+selection = input("Select your option: ")
 
 # match selection:
 #     case '1':
@@ -57,8 +64,8 @@ selection = int(input("Select your option: "))
 if selection == '1': 
     networkScanner(ip)
 
-# elif selection == '2':
-#     portScanner(ip)
+elif selection == '2':
+    portScanner(ip)
     
 elif selection == '3':
     networkSniffer(ip)

@@ -1,5 +1,14 @@
 import pygeoip
 import sys
+import argparse
+
+def args_main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--interface', help='IP address to lookup')
+    args = parser.parse_args()
+    ip_addr = args.ip_addr
+    get_geo_info(ip_addr)
+    return
 
 def get_geo_info(ip):
     geo_ip = pygeoip.GeoIP('GeoLiteCity.dat')
@@ -8,6 +17,8 @@ def get_geo_info(ip):
         print('%s: %s'%(key, value))
     return geo_info
 
-ip_addr = sys.argv[1]
-get_geo_info(ip_addr)
+def ipaddress(ip_addr):
+    argument = args_main()
+    ip_addr = argument.ip_addr
+    get_geo_info(ip_addr)
 

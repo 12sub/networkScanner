@@ -10,20 +10,21 @@ def scan_port(target_ip):
         if result == 0:
             print("[*] Port {} is open".format(port))
         sock.close()
+        
+def scan_port_range(target_ip):
+# target_ip = sys.argv[1]
+    print("+"*50)
+    print("[+] Scanning target IP address: ", target_ip)
+    print("[+] Scanning started at: ", str(datetime.now()))
+    print("+"*50)
 
-target_ip = sys.argv[1]
-print("+"*50)
-print("[+] Scanning target IP address: ", target_ip)
-print("[+] Scanning started at: ", str(datetime.now()))
-print("+"*50)
-
-try:
-    scan_port(target_ip)
-    print("Scanning completed at: ", str(datetime.now()))
-except KeyboardInterrupt:
-    print("[-] Ctrl+C detected! Exiting..........")
-    sys.exit()
-    
-except socket.error:
-    print("[-] Hostname could not be resolved. Exiting..........")
-    sys.exit()
+    try:
+        scan_port(target_ip)
+        print("Scanning completed at: ", str(datetime.now()))
+    except KeyboardInterrupt:
+        print("[-] Ctrl+C detected! Exiting..........")
+        sys.exit()
+        
+    except socket.error:
+        print("[-] Hostname could not be resolved. Exiting..........")
+        sys.exit()
