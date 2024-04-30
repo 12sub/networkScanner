@@ -25,5 +25,5 @@ def get_geo_info(ip):
         return f"An error has occured in this piece of code. Exiting"
 
 
-ip = sys.argv[1]
-print(get_geo_info(ip))
+# # ip = sys.argv[1]
+# print(get_geo_info(ip))
