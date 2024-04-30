@@ -4,6 +4,7 @@ import sys
 import portScanner
 import locator
 import spoofer
+from multiprocessing import Pool
 
 def networkScanner(ip):
     print("+" * 50)
@@ -74,7 +75,9 @@ if selection == '1':
     networkScanner(ip)
 
 elif selection == '2':
-    Scanner(ip)
+    with Pool as pool:
+        port_scan =pool.map(Scanner, ip)
+    print(port_scan)
     
 elif selection == '3':
     networkSniffer(ip)
